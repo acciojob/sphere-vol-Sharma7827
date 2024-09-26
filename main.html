@@ -1,19 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-<title>Volume of a Sphere</title>
-<style> 
-body{padding-top:30px;}
-label,input{display:block;} 
-</style>
+    <meta charset="utf-8">
+    <title>Volume of a Sphere</title>
+    <style> 
+        body { padding-top: 30px; }
+        label, input { display: block; }
+    </style>
 </head>
 <body>
-	<p>Input radius value and get the volume of a sphere.</p>
-	<form action="" method="post" id="MyForm">
-	<label for="radius">Radius</label><input type="text" name="radius" id="radius" required>
-	<label for="volume">Volume</label><input type="text" name="volume" id="volume">
-	<input type="submit" value="Calculate" id="submit">    </form>
-	<script type="text/javascript" src="./script.js"></script>
+    <p>Input radius value and get the volume of a sphere.</p>
+    <form action="" method="post" id="MyForm">
+        <label for="radius">Radius</label>
+        <input type="text" name="radius" id="radius" required>
+        <label for="volume">Volume</label>
+        <input type="text" name="volume" id="volume" readonly> <!-- Make this field readonly -->
+        <input type="submit" value="Calculate" id="submit">    
+    </form>
+
+    <script>
+        // Get references to the input elements
+        let radiusInput = document.querySelector("#radius");
+        let volumeOutput = document.querySelector("#volume");
+
+        function volume_sphere(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Parse the radius value from the input
+            let radius = parseFloat(radiusInput.value);
+
+            // Check if the radius is valid
+            if (isNaN(radius) || radius < 0) {
+                volumeOutput.value = 'NaN'; 
+                return;
+            }
+            
+            // Calculate the volume of the sphere
+            let volumeOfSphere = (4 / 3) * Math.PI * Math.pow(radius, 3);
+
+            // Display the volume rounded to four decimal places
+            volumeOutput.value = volumeOfSphere.toFixed(4);  
+        } 
+
+        // Attach the function to the form's onsubmit event
+        window.onload = function() {
+            document.getElementById('MyForm').onsubmit = volume_sphere;
+        };
+    </script>
 </body>
 </html>
+
